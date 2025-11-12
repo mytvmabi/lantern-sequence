@@ -25,7 +25,7 @@ The RIV protocol supports two modes:
 python experiments/lenet5_mnist.py
 ```
 
-### 2. Zero-Knowledge Mode (Optional)
+### 2. Zero-Knowledge Mode
 - Uses KZG polynomial commitments on BLS12-381
 - Full zero-knowledge proofs for privacy
 - **Slower**: ~10-50ms overhead per round (requires Rust backend)
