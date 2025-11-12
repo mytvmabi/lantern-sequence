@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """
-Test script to verify RIV zero-knowledge mode is working correctly.
 
 This tests the cryptographic backend (matrix_prover_rust + range_prover_rust) to ensure:
 1. KZG polynomial commitments work
