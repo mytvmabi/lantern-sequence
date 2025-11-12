@@ -1,0 +1,15 @@
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "range-prover-rust"
+version = "0.1.0"
+description = "Python bindings for exponentiation and range zero-knowledge proofs"
+requires-python = ">=3.8"
+dependencies = ["numpy>=1.20"]
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+python-source = "python"
+module-name = "range_prover_rust"

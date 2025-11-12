@@ -1,0 +1,20 @@
+// Minimal cryptographic backend for artifact
+// Full implementation available in separate files
+
+pub mod kzg;
+pub mod utils;
+
+// Re-export main types
+pub use kzg::KZG;
+
+// Type aliases for BLS12-381
+pub type BLS12381Pairing = ark_bls12_381::Bls12_381;
+pub type BLS12381Fr = ark_bls12_381::Fr;
+pub type BLS12381G1 = ark_bls12_381::G1Projective;
+pub type BLS12381G2 = ark_bls12_381::G2Projective;
+
+// Python bindings enabled for ZK mode
+#[cfg(feature = "python")]
+pub mod python_bindings;
+pub mod zk_exp_lib;
+pub mod range_proof;

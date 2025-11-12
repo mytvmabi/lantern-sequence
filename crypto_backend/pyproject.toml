@@ -1,0 +1,18 @@
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "crypto-backend-rust"
+version = "1.0.0"
+description = "Cryptographic backend for RIV protocol (Rust implementation)"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+]
+
+[tool.maturin]
+python-source = "python"
+module-name = "crypto_backend_rust"

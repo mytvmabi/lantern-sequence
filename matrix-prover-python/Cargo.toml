@@ -1,0 +1,27 @@
+[package]
+name = "matrix-prover-rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "matrix_prover_rust"
+crate-type = ["cdylib"]
+
+[dependencies]
+# PyO3 for Python bindings
+pyo3 = { version = "0.20", features = ["extension-module"] }
+
+# Numpy for matrix handling
+numpy = "0.20"
+
+# Our matrix prover library (local dependency)
+zkmap = { path = "../matrix-prover", package = "zkMaP" }
+
+# Re-export necessary types
+ark-ff = "0.4.0"
+ark-ec = "0.4.0"
+ark-bls12-381 = "0.4.0"
+
+[profile.release]
+opt-level = 3
+lto = "thin"

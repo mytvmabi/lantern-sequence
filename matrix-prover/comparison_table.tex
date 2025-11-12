@@ -1,0 +1,19 @@
+\begin{table}
+\centering
+\caption{Performance Comparison of ZK Matrix Multiplication vs. Regular Matrix Multiplication}
+\label{tab:zk_vs_nonzk}
+\begin{tabular}{ccccc}
+\toprule
+Matrix Size & Non-ZK Time & ZK Proving Time & ZK Verification Time & Speedup \\
+\midrule
+8$\times$8 & 0.000 ms & 66.00 ms & 6.092 ms & 0.0$\times$ \\
+16$\times$16 & 0.000 ms & 259.00 ms & 6.060 ms & 0.0$\times$ \\
+32$\times$32 & 1.000 ms & 1046.00 ms & 6.025 ms & 0.0$\times$ \\
+64$\times$64 & 14.000 ms & 2104.00 ms & 6.034 ms & 0.0$\times$ \\
+128$\times$128 & 125.000 ms & 4214.00 ms & 6.071 ms & 0.0$\times$ \\
+256$\times$256 & 1.096 s & 16767.00 ms & 6.111 ms & 0.1$\times$ \\
+512$\times$512 & 8.962 s & 67018.00 ms & 6.081 ms & 0.1$\times$ \\
+1024$\times$1024 & 104.007 s & 270071.00 ms & 6.117 ms & 0.4$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}

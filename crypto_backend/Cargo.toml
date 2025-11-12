@@ -1,0 +1,42 @@
+[package]
+name = "crypto_backend_rust"
+version = "1.0.0"
+edition = "2021"
+description = "Cryptographic backend for RIV protocol"
+
+[lib]
+name = "crypto_backend_rust"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# Core cryptography - BLS12-381 curve
+ark-ff = "0.4.0"
+ark-ec = "0.4.0"
+ark-std = "0.4.0"
+ark-bls12-381 = "0.4.0"
+ark-serialize = "0.4.2"
+
+# Utilities
+rand = "0.8.5"
+sha2 = "0.10.7"
+once_cell = "1.18"
+rayon = "1.8.0"
+num_cpus = "1.16.0"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4.26", features = ["serde"] }
+
+# Python bindings
+pyo3 = { version = "0.20", features = ["extension-module"], optional = true }
+
+[features]
+default = ["python"]
+python = ["pyo3"]
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
