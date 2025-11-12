@@ -1,4 +1,4 @@
-# RIV: Retroactive Intermediate Value Verification# RIV: Retroactive Intermediate Value Verification
+# RIV: Retroactive Intermediate Value Verification
 
 
 
