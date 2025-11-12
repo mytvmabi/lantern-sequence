@@ -11,16 +11,16 @@ This artifact implements the Retroactive Intermediate Value Verification (RIV) p
 - **Cryptographic Backend**: KZG polynomial commitments on BLS12-381 with constant-size proofs
 - **Zero-Knowledge Mode**: Optional ZK proofs for enhanced privacy (fallback to hash-based if Rust unavailable)
 - **Dataset Commitment**: KZG-based membership verification for training data authenticity
-- **Evaluation Suite**: LeNet-5 on MNIST and ResNet-18 on CIFAR-10 experiments with REAL gradient extraction
+- **Evaluation Suite**: LeNet-5 on MNIST and ResNet-18 on CIFAR-10 experiments
 
-**Important for Reviewers**: All experiments use **real PyTorch training** with actual gradient extraction - no mocking or hardcoding.
+**Important for Reviewers**: All experiments use PyTorch training with gradient extraction via backpropagation.
 
 ## Key Implementation Details
 
-### Real Gradient Extraction
-All experiments extract actual gradients from PyTorch backpropagation:
+### Gradient Extraction
+All experiments extract gradients from PyTorch backpropagation:
 ```python
-# Training captures real gradients
+# Training with gradient capture
 optimizer.zero_grad()
 loss.backward()
 gradients = {name: param.grad.detach().cpu().numpy().copy() 
@@ -32,7 +32,7 @@ optimizer.step()
 - **Commit-then-challenge**: Clients commit to model BEFORE training
 - **Single-batch verification**: Verifies first batch update per round
 - **No momentum**: Uses plain SGD (momentum requires state tracking)
-- **Real weight tracking**: Captures before/after weights for proof-of-work
+- **Weight tracking**: Captures before/after weights for proof-of-work
 
 ### Operating Modes
 1. **Transparent Mode** (default): Hash-based commitments, fast verification
@@ -73,7 +73,7 @@ python experiments/lenet5_mnist_demo.py
 ```
 
 Expected output: 
-- Training with real gradient extraction
+- Training with gradient extraction
 - All verification rounds: **PASS** ✅
 - 5 rounds complete in ~10 seconds
 
@@ -185,14 +185,14 @@ cd ..
 ```bash
 python experiments/lenet5_mnist_demo.py
 ```
-Runtime: ~10 seconds, demonstrates basic functionality with real gradient extraction.
+Runtime: ~10 seconds, demonstrates basic functionality with gradient extraction.
 Expected: All verifications PASS ✅
 
 **LeNet-5 on MNIST (Full)**
 ```bash
 python experiments/lenet5_mnist.py --rounds 50 --clients 5
 ```
-Runtime: ~15 minutes, reproduces Table 2 results with real training.
+Runtime: ~15 minutes, reproduces Table 2 results.
 
 **ResNet-18 on CIFAR-10**
 ```bash
@@ -204,7 +204,7 @@ Runtime: ~60 minutes, reproduces Table 2 and Figure 2 results.
 ```bash
 python experiments/detection_rate.py --budget 3 5 7 --adversary-ratio 0.05 0.10 0.20
 ```
-Runtime: ~30 minutes, reproduces Table 3 results with realistic attacks.
+Runtime: ~30 minutes, reproduces Table 3 results.
 
 **Scalability Experiments**
 ```bash
@@ -322,10 +322,10 @@ Which enables stateless verification. This is a reasonable trade-off:
 We verify the FIRST batch update per round:
 1. Commit to model weights BEFORE training
 2. Train multiple batches (e.g., 50)
-3. Prove that first batch was computed correctly using real gradients
+3. Prove that first batch was computed correctly
 4. Server accepts update if proof verifies
 
-This is realistic for federated learning where:
+This approach is suitable for federated learning where:
 - Clients perform local training epochs
 - Server samples and verifies representative batches
 - Full batch-by-batch verification would be prohibitive
